@@ -1,0 +1,32 @@
+{% extends 'blogs/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1>Entries</h1>
+{% endblock page_header %}
+
+{% block content %}
+  <h2>
+      <a class="btn btn-lg btn-primary"
+         href="{% url 'blogs:add_new' %}"
+         role="button">Add entry</a>
+  </h2>
+  <ul>
+      {% for entry in blogposts %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ entry.date_added|date:'d M Y H:i' }}
+                <small>
+                    <a href="{% url 'blogs:edit_entry' entry.id %}">edit entry</a>
+                </small>
+            </h4>
+            <div class="card-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div>
+      {% empty %}
+        <li>No entries yet</li>
+      {% endfor %}
+  </ul>
+
+{% endblock content %}
